@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import shachar.afeka.course.volunteers.utilities.SignalManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _openMenuBtn: FloatingActionButton
@@ -31,12 +32,18 @@ class MainActivity : AppCompatActivity() {
 
         findViews()
         initViews()
-
     }
 
     private fun initViews() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val user = firebaseAuth.currentUser
+
+        if(user != null)
+            SignalManager.getInstance().toast(buildString {
+                append("Hello ")
+                append(FirebaseAuth.getInstance().currentUser?.displayName)
+                append("!")
+            })
 
         _openMenuBtn.setOnClickListener { _: View ->
             if (!_mainLayout.isDrawerOpen(GravityCompat.END)) {
