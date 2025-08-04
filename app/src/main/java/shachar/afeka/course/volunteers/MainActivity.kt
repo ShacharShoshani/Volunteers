@@ -1,7 +1,7 @@
 package shachar.afeka.course.volunteers
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val firebaseAuth = FirebaseAuth.getInstance();
+        val firebaseAuth = FirebaseAuth.getInstance()
         val user = firebaseAuth.currentUser
 
         open_menu_btn.setOnClickListener { _: View ->
@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                R.id.menu_item_sign_out->{
                    if(user != null) {
                        firebaseAuth.signOut()
+                       startActivity(Intent(this, LoginActivity::class.java))
                        finish()
                    }
                }
