@@ -14,8 +14,8 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var open_menu_btn: FloatingActionButton
-    private lateinit var navigation_view: NavigationView
+    private lateinit var _openMenuBtn: FloatingActionButton
+    private lateinit var _navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val user = firebaseAuth.currentUser
 
-        open_menu_btn.setOnClickListener { _: View ->
+        _openMenuBtn.setOnClickListener { _: View ->
             val drawerLayout: DrawerLayout = findViewById(R.id.main)
             if(!drawerLayout.isDrawerOpen(GravityCompat.END))
             {
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        navigation_view.setNavigationItemSelectedListener {menuItem ->
+        _navigationView.setNavigationItemSelectedListener { menuItem ->
            when(menuItem.itemId){
                R.id.menu_item_sign_out->{
                    if(user != null) {
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun findViews() {
-        open_menu_btn = findViewById(R.id.open_menu_btn)
-        navigation_view = findViewById(R.id.nav_view)
+        _openMenuBtn = findViewById(R.id.open_menu_btn)
+        _navigationView = findViewById(R.id.nav_view)
     }
 }
