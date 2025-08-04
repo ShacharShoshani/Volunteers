@@ -53,6 +53,6 @@ dependencies {
     //Auth:
     implementation(libs.firebase.ui.auth)
 
-    // Realtime DB:
-    implementation(libs.firebase.database)
+    // Cloud Firestore
+    implementation(libs.firebase.firestore)
 }
