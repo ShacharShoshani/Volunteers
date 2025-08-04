@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _openMenuBtn: FloatingActionButton
     private lateinit var _navigationView: NavigationView
 
+    private lateinit var _mainLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,27 +39,24 @@ class MainActivity : AppCompatActivity() {
         val user = firebaseAuth.currentUser
 
         _openMenuBtn.setOnClickListener { _: View ->
-            val drawerLayout: DrawerLayout = findViewById(R.id.main)
-            if(!drawerLayout.isDrawerOpen(GravityCompat.END))
-            {
-                drawerLayout.openDrawer(GravityCompat.END)
-            }
-            else {
-                drawerLayout.closeDrawer(GravityCompat.START)
+            if (!_mainLayout.isDrawerOpen(GravityCompat.END)) {
+                _mainLayout.openDrawer(GravityCompat.END)
+            } else {
+                _mainLayout.closeDrawer(GravityCompat.START)
             }
 
         }
 
         _navigationView.setNavigationItemSelectedListener { menuItem ->
-           when(menuItem.itemId){
-               R.id.menu_item_sign_out->{
-                   if(user != null) {
-                       firebaseAuth.signOut()
-                       startActivity(Intent(this, LoginActivity::class.java))
-                       finish()
-                   }
-               }
-           }
+            when (menuItem.itemId) {
+                R.id.menu_item_sign_out -> {
+                    if (user != null) {
+                        firebaseAuth.signOut()
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    }
+                }
+            }
             true
         }
     }
@@ -65,5 +64,6 @@ class MainActivity : AppCompatActivity() {
     private fun findViews() {
         _openMenuBtn = findViewById(R.id.open_menu_btn)
         _navigationView = findViewById(R.id.nav_view)
+        _mainLayout = findViewById(R.id.main)
     }
 }
