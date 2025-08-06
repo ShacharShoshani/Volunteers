@@ -9,10 +9,12 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.launch
 import shachar.afeka.course.volunteers.utilities.DBClient
 import shachar.afeka.course.volunteers.utilities.SignalManager
 
@@ -38,36 +40,26 @@ class MainActivity : AppCompatActivity() {
         user = firebaseAuth.currentUser
 
         initViews()
-        testDB()
+        lifecycleScope.launch { testDB() }
     }
 
-    private fun testDB() {
-        if (user == null)
-            return
+    private suspend fun testDB() {
+        if (user == null) return
 
-        DBClient.getInstance()
-            .getUserByUID(user!!.uid)
-            .addOnSuccessListener { result ->
-                if (result != null && !result.exists())
-                    SignalManager.getInstance().toast("More detail are required.")
-                else
-                    SignalManager.getInstance().toast(result!!.getString("residence")!!)
-            }
-            .addOnFailureListener { exception ->
-                if (exception.message != null)
-                    SignalManager.getInstance().toast(exception.message!!)
-            }
+        val dbRecord = DBClient.getInstance().getUserByUID(user!!.uid)
+
+        if (dbRecord == null) SignalManager.getInstance().toast("More detail are required.")
+        else SignalManager.getInstance().toast(dbRecord.name!!)
     }
 
     private fun initViews() {
 
 
-        if (user != null)
-            SignalManager.getInstance().toast(buildString {
-                append("Hello ")
-                append(user?.displayName)
-                append("!")
-            })
+        if (user != null) SignalManager.getInstance().toast(buildString {
+            append("Hello ")
+            append(user?.displayName)
+            append("!")
+        })
 
         _openMenuBtn.setOnClickListener { _: View ->
             if (!_mainLayout.isDrawerOpen(GravityCompat.END)) {

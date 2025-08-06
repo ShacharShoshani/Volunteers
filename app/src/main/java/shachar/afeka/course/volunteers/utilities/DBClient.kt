@@ -1,9 +1,9 @@
 package shachar.afeka.course.volunteers.utilities
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
+import shachar.afeka.course.volunteers.models.User
 import java.lang.IllegalStateException
 
 class DBClient private constructor() {
@@ -26,9 +26,19 @@ class DBClient private constructor() {
         }
     }
 
-    fun getUserByUID(uid: String): Task<DocumentSnapshot?> {
-        return db.collection("users")
+    suspend fun getUserByUID(uid: String): User? {
+        val result = db.collection("users")
             .document(uid)
-            .get()
+            .get().await()
+
+        return if (!result.exists())
+            null
+        else
+            User.Builder()
+                .phone(result.getString("phone"))
+                .email(result.getString("email"))
+                .residence(result.getString("residence"))
+                .name(result.getString("name"))
+                .build()
     }
 }
