@@ -9,13 +9,10 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.launch
-import shachar.afeka.course.volunteers.utilities.DBClient
 import shachar.afeka.course.volunteers.utilities.SignalManager
 
 class MainActivity : AppCompatActivity() {
@@ -40,16 +37,6 @@ class MainActivity : AppCompatActivity() {
         user = firebaseAuth.currentUser
 
         initViews()
-        lifecycleScope.launch { testDB() }
-    }
-
-    private suspend fun testDB() {
-        if (user == null) return
-
-        val dbRecord = DBClient.getInstance().getUserByUID(user!!.uid)
-
-        if (dbRecord == null) SignalManager.getInstance().toast("More detail are required.")
-        else SignalManager.getInstance().toast(dbRecord.createdAt!!.toString())
     }
 
     private fun initViews() {
