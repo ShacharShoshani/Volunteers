@@ -67,11 +67,11 @@ class DBClient private constructor() {
             "updatedAt" to now
         )
 
-        db.collection("users").document(id).set(docData).await()
+        db.collection(Constants.Models.USERS).document(id).set(docData).await()
     }
 
     private suspend fun getUserDBRecord(uid: String): DocumentSnapshot? {
-        return db.collection("users")
+        return db.collection(Constants.Models.USERS)
             .document(uid)
             .get().await()
     }
