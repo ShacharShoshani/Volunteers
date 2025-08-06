@@ -2,4 +2,9 @@
     <string name="app_name">Volunteers</string>
     <string name="menu_sign_out">Sign Out</string>
     <string name="menu_open">Menu Open</string>
+    <string name="avatar_place_holder">Avatar Place Holder</string>
+    <string name="name">Name</string>
+    <string name="residence">Residence</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
 </resources>

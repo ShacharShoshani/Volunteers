@@ -3,4 +3,7 @@
     <dimen name="button_width">50dp</dimen>
     <dimen name="fab_margin">36dp</dimen>
     <dimen name="icon_dimen">75dp</dimen>
+    <dimen name="profile_label_text">28sp</dimen>
+    <dimen name="profile_label_margin">10dp</dimen>
+    <dimen name="profile_tab_padding">40dp</dimen>
 </resources>
