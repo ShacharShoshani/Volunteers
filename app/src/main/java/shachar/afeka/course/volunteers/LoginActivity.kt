@@ -6,10 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import shachar.afeka.course.volunteers.utilities.DBClient
 import shachar.afeka.course.volunteers.utilities.SignalManager
 
@@ -64,10 +66,27 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         if (result.resultCode == RESULT_OK) {
-            transactToMainActivity()
+            lifecycleScope.launch {
+                addToDBIfNotExist()
+            }.invokeOnCompletion { _ -> transactToMainActivity() }
         } else {
             SignalManager.getInstance().toast("Sign in failed.")
             signIn()
+        }
+    }
+
+    private suspend fun addToDBIfNotExist() {
+        val firebaseUser = FirebaseAuth.getInstance().currentUser!!
+
+        if (DBClient.getInstance().userExist(firebaseUser.uid))
+            return
+        else {
+            DBClient.getInstance().addUser(
+                firebaseUser.uid,
+                firebaseUser.displayName,
+                firebaseUser.email,
+                firebaseUser.phoneNumber,
+            )
         }
     }
 }

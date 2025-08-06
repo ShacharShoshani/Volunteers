@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val dbRecord = DBClient.getInstance().getUserByUID(user!!.uid)
 
         if (dbRecord == null) SignalManager.getInstance().toast("More detail are required.")
-        else SignalManager.getInstance().toast(dbRecord.name!!)
+        else SignalManager.getInstance().toast(dbRecord.createdAt!!.toString())
     }
 
     private fun initViews() {
