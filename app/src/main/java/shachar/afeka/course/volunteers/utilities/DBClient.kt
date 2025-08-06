@@ -70,6 +70,23 @@ class DBClient private constructor() {
         db.collection(Constants.Models.USERS).document(id).set(docData).await()
     }
 
+    suspend fun updateUser(
+        id: String,
+        name: String,
+        email: String,
+        phone: String,
+        residence: String
+    ) {
+        val docData = mapOf(
+            "name" to name,
+            "email" to email,
+            "phone" to phone,
+            "residence" to residence,
+            "updatedAt" to Date()
+        )
+        db.collection(Constants.Models.USERS).document(id).update(docData).await()
+    }
+
     private suspend fun getUserDBRecord(uid: String): DocumentSnapshot? {
         return db.collection(Constants.Models.USERS)
             .document(uid)

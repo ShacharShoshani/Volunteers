@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputEditText
@@ -24,10 +25,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _navigationView: NavigationView
     private lateinit var _mainLayout: DrawerLayout
 
-    private lateinit var _name_input: TextInputEditText
-    private lateinit var _residence_input: TextInputEditText
-    private lateinit var _email_input: TextInputEditText
-    private lateinit var _phone_input: TextInputEditText
+    private lateinit var _nameInput: TextInputEditText
+    private lateinit var _residenceInput: TextInputEditText
+    private lateinit var _emailInput: TextInputEditText
+    private lateinit var _phoneInput: TextInputEditText
+    private lateinit var _saveBtn: MaterialButton
+
 
     private var user: FirebaseUser? = null
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -84,6 +87,19 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        _saveBtn.setOnClickListener { _ ->
+            if (user != null)
+                lifecycleScope.launch {
+                    DBClient.getInstance().updateUser(
+                        user!!.uid,
+                        _nameInput.text.toString(),
+                        _emailInput.text.toString(),
+                        _phoneInput.text.toString(),
+                        _residenceInput.text.toString()
+                    )
+                }
+        }
     }
 
     private fun findViews() {
@@ -91,10 +107,11 @@ class MainActivity : AppCompatActivity() {
         _navigationView = findViewById(R.id.nav_view)
         _mainLayout = findViewById(R.id.main)
 
-        _name_input = findViewById(R.id.username_text_input)
-        _residence_input = findViewById(R.id.residence_text_input)
-        _email_input = findViewById(R.id.email_text_input)
-        _phone_input = findViewById(R.id.phone_text_input)
+        _nameInput = findViewById(R.id.username_text_input)
+        _residenceInput = findViewById(R.id.residence_text_input)
+        _emailInput = findViewById(R.id.email_text_input)
+        _phoneInput = findViewById(R.id.phone_text_input)
+        _saveBtn = findViewById(R.id.save_BTN)
     }
 
     private suspend fun loadUserProfile() {
@@ -103,9 +120,9 @@ class MainActivity : AppCompatActivity() {
         if (profile == null)
             return
 
-        _name_input.setText(profile.name)
-        _residence_input.setText(profile.residence)
-        _email_input.setText(profile.email)
-        _phone_input.setText(profile.phone)
+        _nameInput.setText(profile.name)
+        _residenceInput.setText(profile.residence)
+        _emailInput.setText(profile.email)
+        _phoneInput.setText(profile.phone)
     }
 }
