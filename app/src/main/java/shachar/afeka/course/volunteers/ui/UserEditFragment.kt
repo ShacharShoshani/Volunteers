@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 import shachar.afeka.course.volunteers.R
 import shachar.afeka.course.volunteers.utilities.DBClient
+import shachar.afeka.course.volunteers.utilities.SignalManager
 
 class UserEditFragment : Fragment() {
     private lateinit var _nameInput: TextInputEditText
@@ -48,7 +49,10 @@ class UserEditFragment : Fragment() {
 
         _saveBtn.setOnClickListener { _ ->
             if (user != null)
-                lifecycleScope.launch {
+                updateControlsEnabledState()
+
+            lifecycleScope.launch {
+                try {
                     DBClient.getInstance().updateUser(
                         user!!.uid,
                         _nameInput.text.toString(),
@@ -56,7 +60,11 @@ class UserEditFragment : Fragment() {
                         _phoneInput.text.toString(),
                         _residenceInput.text.toString()
                     )
+                } catch (err: Throwable) {
+                    SignalManager.getInstance().toast(err.toString())
                 }
+
+            }.invokeOnCompletion { _ -> updateControlsEnabledState() }
         }
     }
 
@@ -69,14 +77,31 @@ class UserEditFragment : Fragment() {
     }
 
     private suspend fun loadUserProfile() {
-        val profile = DBClient.getInstance().getUserByUID(user!!.uid)
+        try {
+            updateControlsEnabledState()
 
-        if (profile == null)
-            return
+            val profile = DBClient.getInstance().getUserByUID(user!!.uid)
 
-        _nameInput.setText(profile.name)
-        _residenceInput.setText(profile.residence)
-        _emailInput.setText(profile.email)
-        _phoneInput.setText(profile.phone)
+            if (profile == null)
+                return
+
+            _nameInput.setText(profile.name)
+            _residenceInput.setText(profile.residence)
+            _emailInput.setText(profile.email)
+            _phoneInput.setText(profile.phone)
+
+            updateControlsEnabledState()
+        } catch (err: Throwable) {
+            SignalManager.getInstance().toast(err.toString())
+        }
+
+    }
+
+    private fun updateControlsEnabledState() {
+        _nameInput.isEnabled = !_nameInput.isEnabled
+        _residenceInput.isEnabled = !_residenceInput.isEnabled
+        _emailInput.isEnabled = !_emailInput.isEnabled
+        _phoneInput.isEnabled = !_phoneInput.isEnabled
+        _saveBtn.isEnabled = !_saveBtn.isEnabled
     }
 }
