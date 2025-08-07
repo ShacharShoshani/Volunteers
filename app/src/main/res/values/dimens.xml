@@ -6,4 +6,5 @@
     <dimen name="profile_label_text">28sp</dimen>
     <dimen name="profile_label_margin">10dp</dimen>
     <dimen name="profile_tab_padding">40dp</dimen>
+    <dimen name="button_margin">70dp</dimen>
 </resources>
