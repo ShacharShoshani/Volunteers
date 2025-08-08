@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".EditOrganizationActivity">
 
     <LinearLayout
@@ -68,6 +69,33 @@
                     android:lines="5"
                     android:textSize="@dimen/profile_label_text" />
             </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/profile_label_margin"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/organization_headquarters_LBL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/profile_label_margin"
+                android:text="@string/headquarters"
+                android:textColor="@color/black"
+                android:textSize="@dimen/profile_label_text"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/main_FRAME_map"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:padding="@dimen/default_padding" />
 
         </LinearLayout>
 

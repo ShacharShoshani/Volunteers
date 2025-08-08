@@ -7,7 +7,7 @@ class Constants {
     }
 
     object LocationDefault {
-        const val LONGITUDE = 0.0
-        const val LATITUDE = 0.0
+        const val LONGITUDE = 34.776046536821546
+        const val LATITUDE = 32.10317266943507
     }
 }

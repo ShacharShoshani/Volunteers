@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -55,4 +56,7 @@ dependencies {
 
     // Cloud Firestore
     implementation(libs.firebase.firestore)
+
+    // Maps
+    implementation(libs.play.services.maps)
 }

@@ -8,6 +8,7 @@
     <string name="email">Email</string>
     <string name="phone">Phone</string>
     <string name="about">About</string>
+    <string name="headquarters">Headquarters</string>
     <string name="description_hint">Description</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
