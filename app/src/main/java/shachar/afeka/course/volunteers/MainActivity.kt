@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import shachar.afeka.course.volunteers.ui.OrganizationsListFragment
 import shachar.afeka.course.volunteers.ui.UserEditFragment
+import shachar.afeka.course.volunteers.utilities.DBClient
+import shachar.afeka.course.volunteers.utilities.SignalManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _openMenuBtn: FloatingActionButton
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
         findViews()
 
+        SignalManager.init(this)
+        DBClient.init()
         user = firebaseAuth.currentUser
 
         initViews()

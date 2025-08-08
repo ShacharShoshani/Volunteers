@@ -51,10 +51,17 @@ class MapFragment : Fragment() {
     fun zoom(
         lat: Double = Constants.LocationDefault.LATITUDE,
         lon: Double = Constants.LocationDefault.LONGITUDE,
-        title: String = "Hello World"
+        zoom: Float = Constants.LocationDefault.ZOOM,
+        title: String? = null
     ) {
         val location = LatLng(lat, lon)
-        mapClient?.addMarker(MarkerOptions().position(location).title(title))
-        mapClient?.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+
+        val markerConfig = MarkerOptions().position(location)
+        if (title != null)
+            markerConfig.title(title)
+
+        mapClient?.addMarker(markerConfig)
+
+        mapClient?.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoom))
     }
 }
