@@ -56,9 +56,7 @@ class MapFragment : Fragment() {
     ) {
         val location = LatLng(lat, lon)
 
-        val markerConfig = MarkerOptions().position(location)
-        if (title != null)
-            markerConfig.title(title)
+        val markerConfig = MarkerOptions().position(location).title(title)
 
         mapClient?.addMarker(markerConfig)
 

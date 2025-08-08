@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -7,122 +7,128 @@
     android:layoutDirection="ltr"
     tools:context=".EditOrganizationActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/profile_tab_padding"
-        tools:ignore="UselessParent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/organization_name_LBL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/profile_label_margin"
-                android:text="@string/name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/profile_label_text"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/organization_name_text_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/profile_label_text" />
-        </LinearLayout>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_label_margin"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/profile_tab_padding"
+            tools:ignore="UselessParent">
 
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/organization_about_LBL"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/profile_label_margin"
-                android:text="@string/about"
-                android:textColor="@color/black"
-                android:textSize="@dimen/profile_label_text"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/description_hint">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/organization_name_LBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/profile_label_margin"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_label_text"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/organization_about_text_input"
-                    android:layout_width="match_parent"
+                    android:id="@+id/organization_name_text_input"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:lines="2"
                     android:textSize="@dimen/profile_label_text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_label_margin"
-            android:orientation="vertical">
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/organization_headquarters_LBL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/profile_label_margin"
-                android:text="@string/headquarters"
-                android:textColor="@color/black"
-                android:textSize="@dimen/profile_label_text"
-                android:textStyle="bold" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_label_margin"
+                android:orientation="vertical">
 
-                <SearchView
-                    android:id="@+id/search_button"
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/organization_about_LBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/profile_label_margin"
+                    android:text="@string/about"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_label_text"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description_hint">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/organization_about_text_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="2"
+                        android:textSize="@dimen/about_edit_text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/place_search_fragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_label_margin"
+                android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/main_FRAME_map"
-                android:layout_width="match_parent"
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/organization_headquarters_LBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/profile_label_margin"
+                    android:text="@string/headquarters"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/profile_label_text"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <SearchView
+                        android:id="@+id/search_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/place_search_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:id="@+id/main_FRAME_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/blue"
+                    android:padding="@dimen/default_padding" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/organization_save_BTN"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/blue"
-                android:padding="@dimen/default_padding" />
-
+                android:text="@string/save"
+                android:layout_marginTop="@dimen/button_margin"/>
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/organization_save_BTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/button_margin"
-            android:text="@string/save" />
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

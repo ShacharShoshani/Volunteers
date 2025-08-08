@@ -3,6 +3,7 @@ package shachar.afeka.course.volunteers.utilities
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.tasks.await
 import shachar.afeka.course.volunteers.models.User
 import java.lang.IllegalStateException
@@ -93,5 +94,24 @@ class DBClient private constructor() {
             .get().await()
     }
 
+    suspend fun addOrganization(
+        name: String,
+        about: String,
+        lat: Double,
+        lon: Double,
+        ownerId: String
+    ) {
+        val now = Date()
 
+        val docData = hashMapOf(
+            "name" to name,
+            "about" to about,
+            "headquarters" to GeoPoint(lat, lon),
+            "ownerId" to ownerId,
+            "createdAt" to now,
+            "updatedAt" to now
+        )
+
+        db.collection(Constants.Models.ORGANIZATIONS).document().set(docData).await()
+    }
 }

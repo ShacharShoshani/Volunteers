@@ -7,15 +7,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.kotlin.searchByTextRequest
 import com.google.android.libraries.places.widget.PlaceSearchFragment
 import com.google.android.libraries.places.widget.PlaceSearchFragmentListener
 import com.google.android.libraries.places.widget.model.MediaSize
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.launch
 import shachar.afeka.course.volunteers.ui.MapFragment
 import shachar.afeka.course.volunteers.ui.MetaData
 import shachar.afeka.course.volunteers.utilities.Constants
+import shachar.afeka.course.volunteers.utilities.DBClient
 import shachar.afeka.course.volunteers.utilities.SignalManager
 import java.lang.Exception
 
@@ -24,6 +32,12 @@ class EditOrganizationActivity : AppCompatActivity() {
     private lateinit var _mapFragment: MapFragment
     private lateinit var _placeSearchFragment: PlaceSearchFragment
     private lateinit var _placeSearch: SearchView
+    private lateinit var _saveBtn: MaterialButton
+    private lateinit var _nameInput: TextInputEditText
+    private lateinit var _aboutInput: TextInputEditText
+    private val _firebaseAuth = FirebaseAuth.getInstance()
+    private var _user: FirebaseUser? = null
+    private var _location: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +48,7 @@ class EditOrganizationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        _user = _firebaseAuth.currentUser
         findViews()
         initViews()
     }
@@ -41,6 +56,9 @@ class EditOrganizationActivity : AppCompatActivity() {
     private fun findViews() {
         _mainFrameMap = findViewById(R.id.main_FRAME_map)
         _placeSearch = findViewById(R.id.search_button)
+        _saveBtn = findViewById(R.id.organization_save_BTN)
+        _nameInput = findViewById(R.id.organization_name_text_input)
+        _aboutInput = findViewById(R.id.organization_about_text_input)
     }
 
     private fun initViews() {
@@ -70,10 +88,30 @@ class EditOrganizationActivity : AppCompatActivity() {
 
         })
 
+        _saveBtn.setOnClickListener { _ ->
+            if (_user != null) {
+                updateControlsEnabledState()
+
+                lifecycleScope.launch {
+                    try {
+                        DBClient.getInstance().addOrganization(
+                            _nameInput.text.toString(),
+                            _aboutInput.text.toString(),
+                            _location!!.latitude,
+                            _location!!.longitude,
+                            _user!!.uid
+                        )
+                    } catch (err: Throwable) {
+                        SignalManager.getInstance().toast(err.toString())
+                    }
+                }.invokeOnCompletion { finish() }
+            }
+        }
+
         supportFragmentManager
             .beginTransaction()
             .add(R.id.main_FRAME_map, _mapFragment)
-            .replace(R.id.place_search_fragment, _placeSearchFragment)
+            .add(R.id.place_search_fragment, _placeSearchFragment)
             .commit()
     }
 
@@ -104,7 +142,7 @@ class EditOrganizationActivity : AppCompatActivity() {
 
             override fun onPlaceSelected(place: Place) {
                 super.onPlaceSelected(place)
-                val location = place.location
+                val location: LatLng? = place.location
 
                 if (location != null) {
                     _mapFragment.zoom(
@@ -113,8 +151,15 @@ class EditOrganizationActivity : AppCompatActivity() {
                         Constants.LocationDefault.ZOOM,
                         place.displayName
                     )
+                    _location = location
                 }
             }
         })
+    }
+
+    private fun updateControlsEnabledState() {
+        _placeSearch.isEnabled = !_placeSearch.isEnabled
+        _placeSearchFragment.selectable = !_placeSearchFragment.selectable
+        _saveBtn.isEnabled = !_saveBtn.isEnabled
     }
 }

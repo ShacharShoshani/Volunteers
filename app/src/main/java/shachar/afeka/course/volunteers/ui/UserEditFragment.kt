@@ -48,23 +48,24 @@ class UserEditFragment : Fragment() {
             }
 
         _saveBtn.setOnClickListener { _ ->
-            if (user != null)
+            if (user != null) {
                 updateControlsEnabledState()
 
-            lifecycleScope.launch {
-                try {
-                    DBClient.getInstance().updateUser(
-                        user!!.uid,
-                        _nameInput.text.toString(),
-                        _emailInput.text.toString(),
-                        _phoneInput.text.toString(),
-                        _residenceInput.text.toString()
-                    )
-                } catch (err: Throwable) {
-                    SignalManager.getInstance().toast(err.toString())
-                }
+                lifecycleScope.launch {
+                    try {
+                        DBClient.getInstance().updateUser(
+                            user!!.uid,
+                            _nameInput.text.toString(),
+                            _emailInput.text.toString(),
+                            _phoneInput.text.toString(),
+                            _residenceInput.text.toString()
+                        )
+                    } catch (err: Throwable) {
+                        SignalManager.getInstance().toast(err.toString())
+                    }
 
-            }.invokeOnCompletion { _ -> updateControlsEnabledState() }
+                }.invokeOnCompletion { _ -> updateControlsEnabledState() }
+            }
         }
     }
 
