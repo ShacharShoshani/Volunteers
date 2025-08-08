@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.button.MaterialButton
-import shachar.afeka.course.volunteers.AddOrganizationActivity
+import shachar.afeka.course.volunteers.EditOrganizationActivity
 import shachar.afeka.course.volunteers.R
 
 
@@ -30,7 +30,7 @@ class OrganizationsListFragment : Fragment() {
 
     private fun initViews() {
         _addBtn.setOnClickListener { _ ->
-            startActivity(Intent(this.context, AddOrganizationActivity::class.java))
+            startActivity(Intent(this.context, EditOrganizationActivity::class.java))
         }
     }
 
