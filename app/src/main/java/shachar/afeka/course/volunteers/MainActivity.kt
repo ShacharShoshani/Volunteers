@@ -53,13 +53,11 @@ class MainActivity : AppCompatActivity() {
 
         TabLayoutMediator(_tabLayout, _viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "My Organizations"
-                1 -> "My Profile"
+                0 -> "My Profile"
+                1 -> "My Organizations"
                 else -> null
             }
         }.attach()
-
-        _viewPager.currentItem = 1
 
         _openMenuBtn.setOnClickListener { _: View ->
             if (!_mainLayout.isDrawerOpen(GravityCompat.END)) {
@@ -97,8 +95,8 @@ class MainActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> OrganizationsListFragment()
-                1 -> UserEditFragment()
+                0 -> UserEditFragment()
+                1 -> OrganizationsListFragment()
                 else -> throw IllegalStateException("Invalid position.")
             }
         }
