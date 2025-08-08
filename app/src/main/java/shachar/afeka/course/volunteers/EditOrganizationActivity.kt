@@ -37,7 +37,8 @@ class EditOrganizationActivity : AppCompatActivity() {
     private lateinit var _aboutInput: TextInputEditText
     private val _firebaseAuth = FirebaseAuth.getInstance()
     private var _user: FirebaseUser? = null
-    private var _location: LatLng? = null
+    private var _location: LatLng =
+        LatLng(Constants.LocationDefault.LATITUDE, Constants.LocationDefault.LONGITUDE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,8 +98,8 @@ class EditOrganizationActivity : AppCompatActivity() {
                         DBClient.getInstance().addOrganization(
                             _nameInput.text.toString(),
                             _aboutInput.text.toString(),
-                            _location!!.latitude,
-                            _location!!.longitude,
+                            _location.latitude,
+                            _location.longitude,
                             _user!!.uid
                         )
                     } catch (err: Throwable) {
