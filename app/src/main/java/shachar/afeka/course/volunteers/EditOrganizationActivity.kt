@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 import shachar.afeka.course.volunteers.models.Coordinates
 import shachar.afeka.course.volunteers.ui.MapFragment
-import shachar.afeka.course.volunteers.ui.MetaData
+import shachar.afeka.course.volunteers.utilities.MetaData
 import shachar.afeka.course.volunteers.utilities.Constants
 import shachar.afeka.course.volunteers.utilities.DBClient
 import shachar.afeka.course.volunteers.utilities.SignalManager

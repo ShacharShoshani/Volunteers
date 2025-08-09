@@ -1,9 +1,8 @@
-package shachar.afeka.course.volunteers.ui
+package shachar.afeka.course.volunteers.utilities
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-
 
 object MetaData {
     fun getGoogleGeoAPIKey(context: Context): String? {
