@@ -19,4 +19,5 @@
     <string name="param_lat">lat</string>
     <string name="param_lon">lon</string>
     <string name="param_title">title</string>
+    <string name="show_on_map">Show on Map</string>
 </resources>

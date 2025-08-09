@@ -40,7 +40,7 @@ class OrganizationsListAdapter(private val organizations: List<Organization>) :
                         append(updatedAt)
                     }
 
-                binding.root.setOnClickListener { _ ->
+                binding.btnShowOrganizationOnMap.setOnClickListener { _ ->
                     Intent(binding.root.context, MapActivity::class.java).apply {
                         putExtra(R.string.param_title.toString(), name)
                         putExtra(R.string.param_lon.toString(), headquarters.lon)
