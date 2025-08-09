@@ -17,7 +17,7 @@
             android:id="@+id/open_menu_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
+            android:layout_gravity="top|end"
             android:layout_margin="@dimen/fab_margin"
             android:background="@color/white"
             android:contentDescription="@string/menu_open"
@@ -41,7 +41,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
