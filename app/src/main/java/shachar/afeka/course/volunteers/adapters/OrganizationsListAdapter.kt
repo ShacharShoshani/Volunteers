@@ -1,8 +1,11 @@
 package shachar.afeka.course.volunteers.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import shachar.afeka.course.volunteers.MapActivity
+import shachar.afeka.course.volunteers.R
 import shachar.afeka.course.volunteers.databinding.OrganizationsListItemBinding
 import shachar.afeka.course.volunteers.models.Organization
 
@@ -36,6 +39,16 @@ class OrganizationsListAdapter(private val organizations: List<Organization>) :
                         append("Updated at: ")
                         append(updatedAt)
                     }
+
+                binding.root.setOnClickListener { _ ->
+                    Intent(binding.root.context, MapActivity::class.java).apply {
+                        putExtra(R.string.param_title.toString(), name)
+                        putExtra(R.string.param_lon.toString(), headquarters.lon)
+                        putExtra(R.string.param_lat.toString(), headquarters.lat)
+
+                        binding.root.context.startActivity(this)
+                    }
+                }
             }
         }
     }

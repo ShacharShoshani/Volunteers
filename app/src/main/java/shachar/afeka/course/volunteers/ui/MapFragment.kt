@@ -16,7 +16,12 @@ import com.google.android.gms.maps.model.MarkerOptions
 import shachar.afeka.course.volunteers.R
 import shachar.afeka.course.volunteers.utilities.Constants
 
-class MapFragment : Fragment() {
+class MapFragment(
+    lat: Double = Constants.LocationDefault.LATITUDE,
+    lon: Double = Constants.LocationDefault.LONGITUDE,
+    zoom: Float = Constants.LocationDefault.ZOOM,
+    title: String? = null
+) : Fragment() {
 
     private var mapClient: GoogleMap? = null
 
@@ -31,7 +36,7 @@ class MapFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         mapClient = googleMap
-        zoom()
+        zoom(lat, lon, zoom, title)
     }
 
     override fun onCreateView(
