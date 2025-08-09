@@ -15,4 +15,14 @@ class Constants {
     object PermissionCodes {
         const val LOCATION = 0
     }
+
+    object VolunteeringCategories {
+        const val OTHER = "Other"
+        val list = listOf(
+            "Basic Goods Distribution",
+            "Home Renovation",
+            "Shelter Renovation",
+            OTHER
+        )
+    }
 }
