@@ -12,4 +12,7 @@
     <string name="description_hint">Description</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
+    <string name="organization_photo">organization photo</string>
+    <string name="joined_at">Joined at</string>
+    <string name="updated_at">Updated at</string>
 </resources>

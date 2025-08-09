@@ -5,6 +5,8 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.GeoPoint
 import kotlinx.coroutines.tasks.await
+import shachar.afeka.course.volunteers.models.Coordinates
+import shachar.afeka.course.volunteers.models.Organization
 import shachar.afeka.course.volunteers.models.User
 import java.lang.IllegalStateException
 import java.util.Date
@@ -113,5 +115,26 @@ class DBClient private constructor() {
         )
 
         db.collection(Constants.Models.ORGANIZATIONS).document().set(docData).await()
+    }
+
+    suspend fun getOrganizationsByOwner(ownerId: String): List<Organization> {
+        val records = db
+            .collection(Constants.Models.ORGANIZATIONS)
+            .whereEqualTo("ownerId", ownerId)
+            .get().await().documents
+
+        return records.map { record ->
+            val headquarters = record.getGeoPoint("headquarters")
+
+            val builder = Organization.Builder().id(record.id).ownerId(record.getString("ownerId"))
+                .name(record.getString("name")).about(record.getString("about"))
+                .createdAt(record.getTimestamp("createdAt")?.toDate())
+                .updatedAt(record.getTimestamp("updatedAt")?.toDate())
+
+            if (headquarters != null)
+                builder.headquarters(Coordinates(headquarters.latitude, headquarters.longitude))
+
+            builder.build()
+        }
     }
 }
