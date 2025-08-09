@@ -14,4 +14,8 @@ data class Coordinates(
         fun locationLon(lon: Double) = apply { this.lon = lon }
         fun build() = Coordinates(lat, lon)
     }
+
+    companion object {
+        val Default = Coordinates()
+    }
 }

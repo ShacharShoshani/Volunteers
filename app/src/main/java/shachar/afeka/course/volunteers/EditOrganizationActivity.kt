@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
+import shachar.afeka.course.volunteers.models.Coordinates
 import shachar.afeka.course.volunteers.ui.MapFragment
 import shachar.afeka.course.volunteers.ui.MetaData
 import shachar.afeka.course.volunteers.utilities.Constants
@@ -38,7 +39,7 @@ class EditOrganizationActivity : AppCompatActivity() {
     private val _firebaseAuth = FirebaseAuth.getInstance()
     private var _user: FirebaseUser? = null
     private var _location: LatLng =
-        LatLng(Constants.LocationDefault.LATITUDE, Constants.LocationDefault.LONGITUDE)
+        LatLng(Coordinates.Default.lat, Coordinates.Default.lon)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
