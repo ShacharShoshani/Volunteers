@@ -40,6 +40,11 @@ class OrganizationsListFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadOrganizations()
+    }
+
     private fun loadOrganizations() {
         val user = firebaseAuth.currentUser
 
