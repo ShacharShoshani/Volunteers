@@ -74,6 +74,10 @@ class MainActivity : AppCompatActivity() {
 
         _navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.menu_item_add_organization -> {
+                    startActivity(Intent(this, EditOrganizationActivity::class.java))
+                }
+
                 R.id.menu_item_sign_out -> {
                     if (user != null) {
                         firebaseAuth.signOut()

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_item_add_organization"
+        android:title="@string/menu_add_organization" />
+    <item
         android:id="@+id/menu_item_sign_out"
         android:title="@string/menu_sign_out" />
 </menu>
