@@ -11,4 +11,8 @@ class Constants {
         const val LATITUDE = 32.10317266943507
         const val ZOOM = 14f
     }
+
+    object PermissionCodes {
+        const val LOCATION = 0
+    }
 }
