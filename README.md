@@ -12,8 +12,6 @@
 <img width="347" height="770" alt="Screenshot 2025-08-10 at 17 45 24" src="https://github.com/user-attachments/assets/e85aa877-14a6-475b-a3ee-dc527e37ad7d" />
 <img width="345" height="767" alt="Screenshot 2025-08-10 at 17 45 59" src="https://github.com/user-attachments/assets/4cb23a88-262a-44a1-bf86-bf03bac6c0fe" />
 <img width="345" height="769" alt="Screenshot 2025-08-10 at 17 50 46" src="https://github.com/user-attachments/assets/22a209b8-7817-4a50-8964-07fe5c1a7985" />
-
-# Side Menu
 <img width="346" height="768" alt="Screenshot 2025-08-10 at 17 51 42" src="https://github.com/user-attachments/assets/ce8ab542-6ae3-42a1-90f9-b6bd1584bcf2" />
 
 # Map Display
