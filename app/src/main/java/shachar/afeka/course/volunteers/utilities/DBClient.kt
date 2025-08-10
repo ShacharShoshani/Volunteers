@@ -8,7 +8,9 @@ import kotlinx.coroutines.tasks.await
 import shachar.afeka.course.volunteers.models.Coordinates
 import shachar.afeka.course.volunteers.models.Organization
 import shachar.afeka.course.volunteers.models.User
+import shachar.afeka.course.volunteers.models.Volunteering
 import java.lang.IllegalStateException
+import java.util.ArrayList
 import java.util.Date
 
 class DBClient private constructor() {
@@ -118,13 +120,10 @@ class DBClient private constructor() {
     }
 
     suspend fun getOrganizationsByOwner(ownerId: String): List<Organization> {
-        val records = db
-            .collection(Constants.Models.ORGANIZATIONS)
-            .whereEqualTo("ownerId", ownerId)
-            .get().await().documents
+        val records = getOrganizationDBRecordsByOwner(ownerId)
 
-        return records.map { record ->
-            val headquarters = record.getGeoPoint("headquarters")
+        return records.filter { record -> record != null }.map { record ->
+            val headquarters = record!!.getGeoPoint("headquarters")
 
             val builder = Organization.Builder().id(record.id).ownerId(record.getString("ownerId"))
                 .name(record.getString("name")).about(record.getString("about"))
@@ -153,7 +152,7 @@ class DBClient private constructor() {
             "name" to name,
             "about" to about,
             "category" to category,
-            "headquarters" to GeoPoint(lat, lon),
+            "place" to GeoPoint(lat, lon),
             "organizationId" to organizationId,
             "schedule" to schedule,
             "createdAt" to now,
@@ -161,5 +160,40 @@ class DBClient private constructor() {
         )
 
         db.collection(Constants.Models.VOLUNTEERING).document().set(docData).await()
+    }
+
+    private suspend fun getOrganizationDBRecordsByOwner(ownerId: String): List<DocumentSnapshot?> {
+        val res = db.collection(Constants.Models.ORGANIZATIONS)
+            .whereEqualTo("ownerId", ownerId)
+            .get().await().documents
+
+        return res
+    }
+
+    suspend fun getVolunteersByOrganizationOwner(organizationOwnerId: String): List<Volunteering> {
+        val organizations = getOrganizationDBRecordsByOwner(organizationOwnerId)
+
+        return organizations.filter { record -> record != null }.flatMap { org ->
+            val volunteers =
+                db.collection(Constants.Models.VOLUNTEERING)
+                    .whereEqualTo("organizationId", org!!.id)
+                    .get().await().documents
+
+            volunteers.map { record ->
+                val place = record.getGeoPoint("place")
+
+                val builder = Volunteering.Builder().id(record.id).organizationId(org.id)
+                    .name(record.getString("name")).about(record.getString("about"))
+                    .category(record.getString("category"))
+                    .schedule(((record.get("schedule")) as ArrayList<Date>).toList())
+                    .createdAt(record.getTimestamp("createdAt")?.toDate())
+                    .updatedAt(record.getTimestamp("updatedAt")?.toDate())
+
+                if (place != null)
+                    builder.place(Coordinates(place.latitude, place.longitude))
+
+                builder.build()
+            }
+        }
     }
 }

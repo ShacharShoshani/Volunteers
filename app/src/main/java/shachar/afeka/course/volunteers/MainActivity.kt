@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import shachar.afeka.course.volunteers.ui.OrganizationsListFragment
 import shachar.afeka.course.volunteers.ui.UserEditFragment
+import shachar.afeka.course.volunteers.ui.VolunteeringListFragment
 import shachar.afeka.course.volunteers.utilities.DBClient
 import shachar.afeka.course.volunteers.utilities.SignalManager
 
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             tab.text = when (position) {
                 0 -> "My Profile"
                 1 -> "My Organizations"
+                2 -> "My Activities"
                 else -> null
             }
         }.attach()
@@ -99,12 +101,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class ViewPageAdapter(activity: MainActivity) : FragmentStateAdapter(activity) {
-        override fun getItemCount(): Int = 2
+        override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> UserEditFragment()
                 1 -> OrganizationsListFragment()
+                2 -> VolunteeringListFragment()
                 else -> throw IllegalStateException("Invalid position.")
             }
         }

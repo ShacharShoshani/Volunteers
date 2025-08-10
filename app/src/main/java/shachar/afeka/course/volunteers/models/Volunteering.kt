@@ -19,7 +19,7 @@ data class Volunteering(
     class Builder(
         override var id: String? = null,
         override var name: String? = null,
-        var category: String = Constants.VolunteeringCategories.OTHER,
+        var category: String? = Constants.VolunteeringCategories.OTHER,
         var about: String? = null,
         var place: Coordinates = Coordinates.Default,
         var schedule: List<Date> = emptyList(),
@@ -31,7 +31,7 @@ data class Volunteering(
 
         override fun name(name: String?) = apply { this.name = name }
 
-        fun category(category: String = Constants.VolunteeringCategories.OTHER) =
+        fun category(category: String? = Constants.VolunteeringCategories.OTHER) =
             apply { this.category = category }
 
         fun about(about: String?) = apply { this.about = about }
