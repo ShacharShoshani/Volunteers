@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.Light.NoActionBar">
         <activity
-            android:name=".OrganizationVolunteeringActivity"
+            android:name=".EditVolunteeringActivity"
             android:exported="false" />
         <activity
             android:name=".MapActivity"

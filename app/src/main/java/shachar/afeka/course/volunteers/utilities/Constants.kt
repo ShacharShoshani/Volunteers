@@ -18,11 +18,5 @@ class Constants {
 
     object VolunteeringCategories {
         const val OTHER = "Other"
-        val list = listOf(
-            "Basic Goods Distribution",
-            "Home Renovation",
-            "Shelter Renovation",
-            OTHER
-        )
     }
 }

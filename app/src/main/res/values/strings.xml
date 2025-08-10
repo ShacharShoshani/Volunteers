@@ -22,4 +22,13 @@
     <string name="param_organization_id">organizationId</string>
     <string name="show_on_map">Show on Map</string>
     <string name="activities">Activities</string>
+    <string name="place">Place</string>
+    <string name="category">Category</string>
+    <string name="add_activity">Add Activity</string>
+    <string-array name="categories_array">
+        <item>Other</item>
+        <item>Basic Goods Distribution</item>
+        <item>Home Renovation</item>
+        <item>Shelter Renovation</item>
+    </string-array>
 </resources>

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import shachar.afeka.course.volunteers.MapActivity
-import shachar.afeka.course.volunteers.OrganizationVolunteeringActivity
+import shachar.afeka.course.volunteers.EditVolunteeringActivity
 import shachar.afeka.course.volunteers.R
 import shachar.afeka.course.volunteers.databinding.OrganizationsListItemBinding
 import shachar.afeka.course.volunteers.models.Organization
@@ -51,10 +51,10 @@ class OrganizationsListAdapter(private val organizations: List<Organization>) :
                     }
                 }
 
-                binding.btnShowOrganizationActivities.setOnClickListener { _ ->
+                binding.btnAddActivity.setOnClickListener { _ ->
                     Intent(
                         binding.root.context,
-                        OrganizationVolunteeringActivity::class.java
+                        EditVolunteeringActivity::class.java
                     ).apply {
                         putExtra(R.string.param_organization_id.toString(), id)
                         binding.root.context.startActivity(this)

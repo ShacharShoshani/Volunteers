@@ -1,18 +1,20 @@
 package shachar.afeka.course.volunteers
 
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class OrganizationVolunteeringActivity : AppCompatActivity() {
-    private lateinit var _test: TextView
+class EditVolunteeringActivity : AppCompatActivity() {
+    private lateinit var _categoriesSpinner: Spinner
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_organization_volunteering)
+        setContentView(R.layout.activity_edit_volunteering)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -24,10 +26,18 @@ class OrganizationVolunteeringActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        _test.text = intent.getStringExtra(R.string.param_organization_id.toString())
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.categories_array,
+            android.R.layout.simple_spinner_item
+        )
+            .also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                _categoriesSpinner.adapter = adapter
+            }
     }
 
     private fun findViews() {
-        _test = findViewById(R.id.test_text_view)
+        _categoriesSpinner = findViewById(R.id.volunteering_category_spinner)
     }
 }

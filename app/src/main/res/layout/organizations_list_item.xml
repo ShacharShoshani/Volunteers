@@ -87,11 +87,11 @@
                     android:text="@string/show_on_map" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_show_organization_activities"
+                    android:id="@+id/btn_add_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/button_margin"
-                    android:text="@string/activities" />
+                    android:text="@string/add_activity" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
