@@ -33,3 +33,4 @@
 * Enable users to assign as volunteers to activities opend by other users
 * Prevent db records duplication
 * Upload images for user's profile, organizations and volunteering activities
+* Make a logo for the app
