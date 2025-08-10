@@ -16,6 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import shachar.afeka.course.volunteers.R
+import shachar.afeka.course.volunteers.interfaces.IViewReadyCallback
 import shachar.afeka.course.volunteers.utilities.Constants
 import shachar.afeka.course.volunteers.utilities.SignalManager
 
@@ -27,8 +28,8 @@ class MapFragment(
     title: String? = null
 ) : Fragment() {
 
+    var viewReadyCallback: IViewReadyCallback? = null
     private var mapClient: GoogleMap? = null
-
     private val callback =
         { googleMap: GoogleMap ->
             /**
@@ -87,6 +88,7 @@ class MapFragment(
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        viewReadyCallback?.viewReady(view)
     }
 
     fun zoom(

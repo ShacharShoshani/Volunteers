@@ -1,6 +1,7 @@
 package shachar.afeka.course.volunteers.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.SearchView
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +15,7 @@ import com.google.android.libraries.places.widget.PlaceSearchFragment
 import com.google.android.libraries.places.widget.PlaceSearchFragmentListener
 import com.google.android.libraries.places.widget.model.MediaSize
 import shachar.afeka.course.volunteers.R
+import shachar.afeka.course.volunteers.interfaces.IViewReadyCallback
 import shachar.afeka.course.volunteers.models.Coordinates
 import shachar.afeka.course.volunteers.utilities.Constants
 import shachar.afeka.course.volunteers.utilities.MetaData
@@ -53,7 +55,7 @@ abstract class FormWithMapSearchActivity(
     }
 
     protected open fun initViews() {
-        mapFragment = MapFragment()
+        initMapFragment()
         initSearchFragment()
         initPlaceSearch()
 
@@ -62,6 +64,19 @@ abstract class FormWithMapSearchActivity(
             .add(mapFrameId, mapFragment)
             .add(placeSearchFragmentContainerId, placeSearchFragment)
             .commit()
+    }
+
+    private fun initMapFragment() {
+        mapFragment = MapFragment()
+
+        mapFragment.viewReadyCallback = object : IViewReadyCallback {
+            override fun viewReady(view1: View) {
+                val mapFragmentLayoutParams = view1.layoutParams
+                mapFragmentLayoutParams.height = (400 * resources.displayMetrics.density).toInt()
+                view1.layoutParams = mapFragmentLayoutParams
+                view1.requestLayout()
+            }
+        }
     }
 
     private fun initPlaceSearch() {
