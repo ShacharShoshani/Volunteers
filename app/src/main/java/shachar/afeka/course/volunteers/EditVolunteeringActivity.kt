@@ -71,8 +71,8 @@ class EditVolunteeringActivity : FormWithMapSearchActivity(
                             _aboutInput.text.toString(),
                             location.lat,
                             location.lon,
-                            emptyList(),
-                            _organizationId!!
+                            _organizationId!!,
+                            emptyList()
                         )
                     } catch (err: Throwable) {
                         val message = if (err.message == null) err.toString() else err.message

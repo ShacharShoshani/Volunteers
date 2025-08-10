@@ -144,8 +144,8 @@ class DBClient private constructor() {
         about: String,
         lat: Double,
         lon: Double,
+        organizationId: String,
         schedule: List<Date> = emptyList(),
-        organizationId: String
     ) {
         val now = Date()
 
