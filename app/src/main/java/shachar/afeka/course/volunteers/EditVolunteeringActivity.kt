@@ -3,29 +3,22 @@ package shachar.afeka.course.volunteers
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import shachar.afeka.course.volunteers.ui.FormWithMapSearchActivity
 
-class EditVolunteeringActivity : AppCompatActivity() {
+class EditVolunteeringActivity : FormWithMapSearchActivity(
+    R.layout.activity_edit_volunteering,
+    R.id.volunteering_main_FRAME_map,
+    R.id.volunteering_place_search_fragment,
+    R.id.volunteering_place_search_button
+) {
     private lateinit var _categoriesSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_edit_volunteering)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        findViews()
-        initViews()
     }
 
-    private fun initViews() {
+    override fun initViews() {
+        super.initViews()
         ArrayAdapter.createFromResource(
             this,
             R.array.categories_array,
@@ -37,7 +30,8 @@ class EditVolunteeringActivity : AppCompatActivity() {
             }
     }
 
-    private fun findViews() {
+    override fun findViews() {
+        super.findViews()
         _categoriesSpinner = findViewById(R.id.volunteering_category_spinner)
     }
 }
