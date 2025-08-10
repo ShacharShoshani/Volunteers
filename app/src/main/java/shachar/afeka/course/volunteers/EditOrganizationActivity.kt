@@ -63,6 +63,8 @@ class EditOrganizationActivity :
     private fun updateControlsEnabledState() {
         placeSearch.isEnabled = !placeSearch.isEnabled
         placeSearchFragment.selectable = !placeSearchFragment.selectable
+        _nameInput.isEnabled = !_nameInput.isEnabled
+        _aboutInput.isEnabled = !_aboutInput.isEnabled
         _saveBtn.isEnabled = !_saveBtn.isEnabled
     }
 }

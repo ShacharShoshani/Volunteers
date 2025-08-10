@@ -4,6 +4,7 @@ class Constants {
     object Models {
         const val USERS = "users"
         const val ORGANIZATIONS = "organizations"
+        const val VOLUNTEERING = "volunteering"
     }
 
     object LocationDefault {

@@ -137,4 +137,29 @@ class DBClient private constructor() {
             builder.build()
         }
     }
+
+    suspend fun addVolunteering(
+        name: String,
+        category: String,
+        about: String,
+        lat: Double,
+        lon: Double,
+        schedule: List<Date> = emptyList(),
+        organizationId: String
+    ) {
+        val now = Date()
+
+        val docData = hashMapOf(
+            "name" to name,
+            "about" to about,
+            "category" to category,
+            "headquarters" to GeoPoint(lat, lon),
+            "organizationId" to organizationId,
+            "schedule" to schedule,
+            "createdAt" to now,
+            "updatedAt" to now
+        )
+
+        db.collection(Constants.Models.VOLUNTEERING).document().set(docData).await()
+    }
 }
